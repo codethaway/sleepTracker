@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+  color: white !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-family: "Play", sans-serif;
+  color: #fff;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+}
+.lead .btn:first-of-type {
+  color: #9f8392 !important;
+}
+.lead .btn:nth-of-type(2) {
+  color: #fff;
+}
+.lead .btn:hover {
+  color: #fff !important;
+  border-color: #e91686 !important;
+  background-color: #e91686 !important;
+}
+
+hr {
+  color: #fff;
+}
+.load {
+  animation: slideUp 1.4s ease;
+  padding-top: 8%;
+  width: 70%;
+  margin: 0 auto;
+}
+.top-header {
+  position: relative;
+}
+.nav {
+  padding: 0 3% !important;
+}
+.nav h1 {
+  text-align: center !important;
+  animation: slideLeft 1.7s ease;
+  font-size: 20px;
+  color: #fff;
+  margin: 0 auto;
+}
+.mr {
+  margin-right: 1%;
+}
+.top-header p {
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px !important;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+p:first-of-type {
+  font-family: "Montserrat", sans-serif;
+}
+a {
+  font-family: "Cabin", sans-serif;
+  font-weight: 400;
+}
+
+.message {
+  position: absolute;
+  top: 0;
+}
+.background {
+  display: table;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../sleep-nap.jpg");
+  opacity: 0.88;
+  background-size: cover;
+}
+.centered {
+  vertical-align: middle;
+  background-color: #330e57de;
+  text-align: center;
+  padding: 0 0 3%;
+  height: 100vh;
+}
+span {
+  margin: 0;
+}
+
+img {
+  width: 3%;
+  animation: slideDown 1.7s ease;
+}
+footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.entry {
+  color: #000 !important;
+}
+.entry .entry-nav {
+  justify-content: space-between;
+}
+.entry-nav h2 {
+  font-size: 20px;
+  font-family: "Play", sans-serif;
+}
+
+.entry div {
+  padding-top: 0;
+}
+.entry div h1 {
+  font-family: "Cabin", sans-serif;
+  letter-spacing: 0;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #2b0318;
+}
+.entry div button {
+  font-size: 20px;
+  font-family: "Source Sans Pro", sans-serif;
+  border-radius: 50px;
+  text-transform: capitalize;
+  margin-top: 1%;
+}
+.fourth-series {
+  stroke: blue;
+  fill: none;
+  background-color: cornflowerblue;
+}
+.area {
+  fill: red;
+}
+.graph-table {
+  padding: 0 5%;
+  margin: 4% 0 5%;
+  display: flex;
+  justify-content: space-around;
+}
+.area-series {
+  stroke: rgb(4, 44, 83);
+  stroke-width: 4px;
+  fill: rgba(25, 118, 210, 0.425);
+}
+.line {
+  font-family: "Montserrat", sans-serif;
+}
+canvas {
+  width: 50% !important;
+  font-family: "Montserrat", sans-serif;
+
+  max-width: 600px !important;
+  height: 320px !important;
+}
+
+.table-section {
+  position: relative;
+  width: 40%;
+  height: 340px;
+}
+.table-container,
+.duration {
+  height: 100%;
+  position: relative;
+}
+.table-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-section div,
+.table-section {
+  padding: 0 !important;
+}
+.heading {
+  display: flex;
+  width: 92%;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 auto 0 10%;
+  justify-content: space-around;
+  margin-bottom: 1%;
+}
+.days {
+  height: 80%;
+  font-size: 15px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  width: 7%;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+}
+.table {
+  width: 100%;
+  height: 80%;
+  color: #041627 !important;
+  margin: 0 auto 0 2%;
+}
+table {
+  height: 100%;
+  width: 100%;
+  background: #9ec5ec;
+
+  border-radius: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+}
+.no-data {
+  background-color: #9ec5ec4a;
+  padding: 2% 0;
+  font-size: 16px;
+  color: rgba(44, 43, 43, 0.637);
+  font-family: "Karla", sans-serif !important;
+  border-radius: 7px;
+}
+tr,
+td {
+  border: none !important;
+  border-style: none;
+}
+label {
+  font-family: "Source Sans Pro", sans-serif !important;
+}
+.MuiInputBase-input,
+.MuiPickersToolbar-toolbar {
+  font-family: "Karla", sans-serif !important;
+  font-weight: 400 !important;
+}
+label + .MuiInput-formControl {
+  margin-top: 7px !important;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(3px);
+}
+.date-picker {
+  font-family: "Karla", sans-serif !important;
+  width: 40%;
+  padding: 1% 2% 3% !important;
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 12px;
+  height: min-content;
+  margin: auto;
+  background-color: #f9fbff;
+}
+.entry-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.time {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.date-picker .entry-form button {
+  width: 24%;
+  margin-top: 4%;
+  padding: 5px;
+  font-size: 18px;
+}
+.date-picker h4 {
+  font-family: "Cabin", sans-serif;
+  font-weight: 700;
+  margin: 0 0 2%;
+}
+.entry-form .cancel {
+  width: 0.9em;
+  height: 0.9em;
+  position: absolute;
+  top: 6%;
+  right: 6%;
+}
