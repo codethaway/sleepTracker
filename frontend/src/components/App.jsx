@@ -2,7 +2,7 @@
 
 import React from 'react';
 import "../styles/bootstrap.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './Home';
 import '../styles/App.css';
 import Login from "./Login";
@@ -15,18 +15,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Route path="/" exact>
-          <Home  />
-        </Route>
-        <Switch>
-          <Route path="/login" exact>
-            <Login />
-          </Route>
-          <Route path="/register" exact>
-            <Signup />
-          </Route>
-          <Route path="/entry/:id" component={ Entry } exact/>
-        </Switch>
+        <Route path='/' component={ Home } exact />
+        <Route path='/login' component={ Login } />
+        <Route path='/register' component={ Signup } />
+        <Route path='/entry/:id' component={ Entry } />
         <Footer />
       </div>
     </Router>

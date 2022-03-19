@@ -1,16 +1,21 @@
 //jshint esversion:8
 
-const express = require('express');
-
-const session = require('express-session');
-const passport = require('passport');
-const connectDB = require('./config/db.js')
-const User = require('./models/userModel')
+import express from 'express'
+import session from 'express-session'
+import dotenv from 'dotenv'
+import colors from 'colors'
+import passport from 'passport'
+import connectDB from './config/db.js'
+import User from './models/userModel.js'
+import entriesRoute from './routes/entryRoute.js'
+import usersRoutes from './routes/usersRoutes.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+dotenv.config()
 
 const app = express();
 
 app.use(session({
-  secret: "The Glory",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -20,8 +25,11 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use('/api/entries', entriesRoute)
+app.use('/api/users', usersRoutes)
 connectDB()
+
+
 
 
 passport.use(User.createStrategy());
@@ -36,55 +44,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-app.post('/register', function(req, res) {
 
-  console.log(req.body);
-
-  User.register({
-    username: req.body.username,
-    handle: req.body.handle
-  }, req.body.password, function(err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      passport.authenticate('local')(req, res, function() {
-        console.log("Access Granted!!");
-        console.log(req.user);
-        res.json(req.user.id)
-      });
-    }
-  });
-
-});
-
-
-app.get('/api/entries', function(req, res) {
-  console.log(req.isAuthenticated());
-  User.find(function(err, foundUsers)  {
-    if (err) {
-      console.error(err);
-    } else {
-      res.send(foundUsers)
-    }
-  })
-});
-
-
-
-app.get('/api/entries/:id', function(req, res) {
-  console.log(req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    User.findById(req.params.id, function(err, foundUser) {
-      if (err) {
-        console.log(err)
-      } else {
-        res.json(foundUser)
-      }
-    })
-  } else {
-    res.json(false)
-  }
-});
 
 
 app.post('/api/entries/:id', function(req, res) {
@@ -100,29 +60,13 @@ app.post('/api/entries/:id', function(req, res) {
     }
   });
 });
-app.post('/login', function(req, res) {
 
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
 
-  req.login(user, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      passport.authenticate('local')(req, res, function() {
-        console.log("Access Granted!!");
-        res.json(req.user.id);
-        console.log(req.user)
-      });
-    }
-  });
-});
-app.get('/logout', (req, res) => {
-  req.logout();
-  console.log("Logging out")
+app.use(notFound)
+app.use(errorHandler)
+
+const port = process.env.PORT || 5000
+
+app.listen(port, function() {
+    console.log(`Server running on ${process.env.NODE_ENV} mode in port ${port}`.yellow.bold)
 })
-app.listen(8080, function() {
-  console.log('Server running on port 8080');
-});

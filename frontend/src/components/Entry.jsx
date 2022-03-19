@@ -1,9 +1,10 @@
-//jshint esversion:8
+//jshint esversion:9
 
 import React, { useState, useEffect } from "react";
 import icon from "../moon copy.svg";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
+import { Col, Row } from 'react-bootstrap'
 import Button from '@mui/material/Button';
 import axios from 'axios'
 import BasicDatePicker from './Datetime';
@@ -11,29 +12,27 @@ import Zoom from "@material-ui/core/Zoom";
 import Table from "./Table";
 import Graph from './Graph'
 
-function Entry( { match } ) {
+function Entry( { history, match } ) {
     const [entries, setEntries] = useState([]);
     const [isClicked, setIsClicked] = useState(false);
-    const [redirect, setRedirect] = useState(false);
+
 
 
     useEffect(() => {
         fetch(`/api/entries/${match.params.id}`)
             .then(response => response.json()).then(json => {
-                if (json === false) {
-                   setRedirect(true)
+                console.log(json)
+                if (json.message) {
+                   history.push('/login')
                 } else {
                     setEntries(prevEntries => {
-                        return [...prevEntries, ...json.sleepData];
+                        return ([...prevEntries, ...json.sleepData]);
                     })
-                } 
+                }
         });
 
-    }, [match]);
-    
-    if (redirect) {
-        return <Redirect to='/login' />
-    }
+    }, [match, history]);
+
 
     function addEntries(newEntry) {
         setEntries(prevEntries => {
@@ -53,7 +52,7 @@ function Entry( { match } ) {
         isClicked ? setIsClicked(false) : setIsClicked(true);
     }
     const logout = () => {
-        axios.get('/logout')
+        axios.get('/api/users/logout')
         console.log("clicked")
     }
 
@@ -62,7 +61,7 @@ function Entry( { match } ) {
         <div className="entry">
             <nav className="nav entry-nav">
                 <img src={icon} alt="sleeping-icon" />
-                <div className="w-25 d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center">
                     <h2>Hello, Comrade.</h2>
                     <Link className='btn btn-dark my-3' to='/' onClick={ logout }> Logout</Link>
                 </div>
@@ -72,10 +71,14 @@ function Entry( { match } ) {
                 {entries.length === 7 ? <Button variant="contained" disabled> <AddIcon fontSize="large" /> New Entry</Button> : <Button variant="contained" onClick={handleEntry} > <AddIcon fontSize="large" /> New Entry</Button>}
 
             </div>
-            <div className="graph-table">
-                <Graph dates= { dates } time= { time }/>
-                <Table key={1} data={entries} />
-            </div>
+            <Row className="graph-table">
+                <Col className="graph" lg={6} md={6} sm={12}>
+                  <Graph dates= { dates } time= { time }/>
+                </Col>
+                <Col lg={6} md={6} sm={12}>
+                  <Table key={1} data={entries} />
+                </Col>
+            </Row>
             {isClicked && <div className="overlay"></div>}
             <Zoom in={isClicked}>
                 <div className="date-picker"><BasicDatePicker date="date" match={match} onCloseEntry={handleEntry} onAdd={addEntries} timeElapsed="timeElapsed" sleepTime="sleepTime" wakeUpTime="wakeUpTime" /></div>

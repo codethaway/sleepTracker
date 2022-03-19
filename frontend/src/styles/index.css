@@ -105,9 +105,13 @@ footer {
 
 .entry {
   color: #000 !important;
+  overflow-x: hidden;
 }
 .entry .entry-nav {
   justify-content: space-between;
+}
+.entry-nav div {
+  width: 30%;
 }
 .entry-nav h2 {
   font-size: 20px;
@@ -141,7 +145,7 @@ footer {
 }
 .graph-table {
   padding: 0 5%;
-  margin: 4% 0 5%;
+  margin: 4% 0 5% !important;
   display: flex;
   justify-content: space-around;
 }
@@ -154,7 +158,6 @@ footer {
   font-family: "Montserrat", sans-serif;
 }
 canvas {
-  width: 50% !important;
   font-family: "Montserrat", sans-serif;
 
   max-width: 600px !important;
@@ -162,8 +165,8 @@ canvas {
 }
 
 .table-section {
+  width: 90%;
   position: relative;
-  width: 40%;
   height: 340px;
 }
 .table-container,
@@ -253,8 +256,8 @@ label + .MuiInput-formControl {
 }
 .date-picker {
   font-family: "Karla", sans-serif !important;
-  width: 40%;
-  padding: 1% 2% 3% !important;
+  width: 35%;
+  padding: 2% !important;
   position: absolute;
   z-index: 4;
   top: 0;
@@ -272,7 +275,8 @@ label + .MuiInput-formControl {
   align-items: center;
 }
 .time {
-  width: 70%;
+  width: 75%;
+  margin-top: 2%;
   display: flex;
   justify-content: space-between;
 }
@@ -293,4 +297,28 @@ label + .MuiInput-formControl {
   position: absolute;
   top: 6%;
   right: 6%;
+}
+@media (max-width: 770px) {
+  img {
+    width: 8%;
+  }
+  .entry-nav div {
+    width: 65%;
+  }
+  .entry div h1 {
+    font-size: 2.5rem;
+  }
+  .entry div button {
+    padding: 4px 14px;
+    font-size: 18px;
+  }
+  .row > * {
+    padding: 0 !important;
+  }
+  .graph {
+    margin-bottom: 8%;
+  }
+  .table-section {
+    width: 94%;
+  }
 }

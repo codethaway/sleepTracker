@@ -1,17 +1,16 @@
 //jshint esversion:6
 import React from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "../styles/Login.css";
-function Signup(props) {
+function Signup({ history }) {
 
     const [user, setUser] = React.useState({
         username: "",
         handle: "",
         password: ""
     });
-    const [redirect, setRedirect] = React.useState(false);
-    const [id, setId] = React.useState('')
+
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -29,8 +28,8 @@ function Signup(props) {
             body: JSON.stringify(user)
         };
         
-        fetch('/register', options)
-            .then(response => (response.json())).then(data => setId(data)).then(setRedirect(true));
+        fetch('/api/users/register', options)
+            .then(response => (response.json())).then(id => history.push(`/entry/${id}`));
 
         setUser({
             username: "",
@@ -39,13 +38,10 @@ function Signup(props) {
         });
 
         event.preventDefault();
-        console.log(id)
         
 
     }
-    if (redirect) {
-        return <Redirect to={`/entry/${id}`}/>;
-    }
+    
 
     return (
 

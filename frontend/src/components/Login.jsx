@@ -1,17 +1,14 @@
 
 import React from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import "../styles/Login.css";
-function Login() {
+function Login( { history } ) {
     const [user, setUser] = React.useState({
         username: "",
         password: ""
     });
-    const [redirect, setRedirect] = React.useState(false);
-
-    const [id, setId] = React.useState('')
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -29,11 +26,10 @@ function Login() {
             body: JSON.stringify(user)
         };
 
-        fetch('/login', options)
+        fetch('/api/users/login', options)
             .then(response => (response.json())).then(data => {
-                setId(data)
-                setRedirect(true)
-            });
+                history.push(`/entry/${data}`)
+              })
         setUser({
             username: "",
             password: ""
@@ -41,12 +37,9 @@ function Login() {
 
         event.preventDefault();
 
+
     }
 
-    console.log(id)
-    if (redirect) {
-        return <Redirect to={`/entry/${id}`}/>;
-    }
 
     return (
 
@@ -57,10 +50,10 @@ function Login() {
                 <div className="container-fluid">
 
                     <div className="mb-3 drop">
-                        <input type="email" className="form-control" id="InputUsername" onChange={handleChange} name="username" value={user.username} placeholder="Username" autoComplete="off" />
+                        <input type="email" className="form-control" id="InputUsername" onChange={handleChange} name="username" value={user.username} placeholder="Email" autoComplete="off" />
                     </div>
                     <div className="mb-3 drop">
-                        <input type="password" className="form-control" name="password" onChange={handleChange} value={user.password} placeholder="Password" id="exampleInputPassword1" />
+                        <input type="password" className="form-control" name="password" onChange={handleChange} value={user.password} placeholder="Password" id="exampleInputPassword1" autoComplete="off" />
                     </div>
                     <span> Don't have an account?   <Link to="/register">Signup </Link> instead.</span>
 
@@ -68,11 +61,11 @@ function Login() {
                 <button type="submit" onClick={submitData} className="btn btn-primary">Log In</button>
             </form>
         </div>
-    
+
     )
 
 
-    
+
 }
 
 export default Login
