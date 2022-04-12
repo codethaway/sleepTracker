@@ -16,7 +16,7 @@ function Home () {
           </nav>
           <div className="load">
             <div className="top-header">
-              <h1 className="display-3">Daily Sleep Tracker</h1>
+              <h1 className="display-3" style={{color: '#fff'}}>Daily Sleep Tracker</h1>
               <p className="lead">Stick to a sleep schedule, Be Consistent.</p>
             </div>
             <hr/>

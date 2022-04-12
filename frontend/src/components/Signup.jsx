@@ -1,14 +1,20 @@
 //jshint esversion:6
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios'
+import FormContainer from './FormContainer'
+import { Button, Form, Row, Col } from 'react-bootstrap'
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
 import "../styles/Login.css";
+import Message from './Message';
 function Signup({ history }) {
-
-    const [user, setUser] = React.useState({
+    const [ isError, setIsError ] = useState(null)
+    // const redirect = location.search ? location.search.split('=')[1] : '/'
+    const [user, setUser] = useState({
         username: "",
         handle: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
 
@@ -19,25 +25,38 @@ function Signup({ history }) {
             [name]: value
         }))
     }
-    function submitData(event) {
-        const options = {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user)
-        };
+    const submitHandler = async (event) => {
         
-        fetch('/api/users/register', options)
-            .then(response => (response.json())).then(id => history.push(`/entry/${id}`));
+        event.preventDefault();
 
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        if(user.password !== user.confirmPassword) {
+            setIsError('Passwords do not match')
+        } else {
+
+            try {
+             const { data } = await axios.post('/api/users/register', {...user}, config)
+             console.log(data);
+            } catch (error) {
+     
+             const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message
+             setIsError(errorMessage)
+            }
+
+        }
+       
         setUser({
             username: "",
             handle: "",
-            password: ""
+            password: "",
+            confirmPassword: ""
         });
 
-        event.preventDefault();
         
 
     }
@@ -45,27 +64,41 @@ function Signup({ history }) {
 
     return (
 
-        <div className=" login container">
-            <div className="overlay"> </div>
-            <form action="/register" method='post'>
-                <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
-                <div className="container-fluid">
+        
+        <FormContainer>
+        <h2>Register</h2>
+            { isError && <Message variant='danger'>{ isError }</Message>}
+            <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
+           <Form onSubmit={submitHandler}>
+            <Form.Group controlId='name'>
+                <Form.Label>Name</Form.Label>
+                <Form.Control className="mb-3" type='text' placeholder='Enter Name' name='handle' value={user.handle} onChange={handleChange}></Form.Control>
+            </Form.Group>
+            <Form.Group controlId='email'>
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control className="mb-3" type='email' placeholder='Enter Email' name='username' value={user.username} onChange={handleChange}></Form.Control>
+            </Form.Group>
+            <Form.Group controlId='password'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control className="mb-3" type='password' placeholder='Enter Password' name='password' value={user.password} onChange={handleChange}></Form.Control>
+            </Form.Group>
+            <Form.Group controlId='confirmPassword'>
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control className="mb-3" type='password' placeholder='Confirm Password' name='confirmPassword' value={user.confirmPassword} onChange={handleChange}></Form.Control>
+            </Form.Group>
+            <Button type="submit" variant="dark">
+                Register
+            </Button>
+        </Form>
 
-                    <div className="mb-3 drop">
-                        <input type="text" className="form-control" onChange={handleChange} id="InputUsername" name="handle" value={user.handle} placeholder="Username" autoComplete="off" />
-                    </div>
-                    <div className="mb-3 drop">
-                        <input type="email" className="form-control" onChange={handleChange} name="username" id="RegisterEmail" value={user.username} placeholder="Email" aria-describedby="emailHelp" />
-                    </div>
-                    <div className="mb-3 drop">
-                        <input type="password" className="form-control" onChange={handleChange} name="password" value={user.password} placeholder="Password" id="exampleInputPassword1" />
-                    </div>
-                    <span> Have an account? --{'>'} Login instead.</span>
-
-                </div>
-                <button type="submit" onClick={submitData} className="btn btn-primary">Sign up </button>
-            </form>
-        </div>
+        <Row className='py-3'>
+            <Col>
+                Have an account?{' '} <Link to={ '/login'}>
+                    Login
+                </Link>
+            </Col>
+        </Row>
+        </FormContainer>
 
     )
 }

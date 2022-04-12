@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  color: white !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -8,11 +7,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  min-height: 80vh;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+.rating span {
+  margin: 0.1rem;
+}
+
 h1 {
   font-family: "Play", sans-serif;
-  color: #fff;
+  font-size: 1.8rem;
+  padding: 1rem 0;
   line-height: 1 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
 }
 .lead .btn:first-of-type {
   color: #9f8392 !important;
@@ -120,6 +137,7 @@ footer {
 
 .entry div {
   padding-top: 0;
+  text-align: center;
 }
 .entry div h1 {
   font-family: "Cabin", sans-serif;
@@ -133,7 +151,6 @@ footer {
   font-family: "Source Sans Pro", sans-serif;
   border-radius: 50px;
   text-transform: capitalize;
-  margin-top: 1%;
 }
 .fourth-series {
   stroke: blue;
@@ -145,9 +162,13 @@ footer {
 }
 .graph-table {
   padding: 0 5%;
-  margin: 4% 0 5% !important;
+  margin: 3% 0 4% !important;
   display: flex;
   justify-content: space-around;
+}
+.graph-table button {
+  font-size: 15px !important;
+  margin: 5% 10% 0 0 !important;
 }
 .area-series {
   stroke: rgb(4, 44, 83);
@@ -232,6 +253,7 @@ tr,
 td {
   border: none !important;
   border-style: none;
+  padding: 0;
 }
 label {
   font-family: "Source Sans Pro", sans-serif !important;
@@ -321,4 +343,9 @@ label + .MuiInput-formControl {
   .table-section {
     width: 94%;
   }
+}
+.head-title {
+  font-weight: 600;
+  font-size: calc(1.575rem + 0.3vw);
+  letter-spacing: 1px;
 }

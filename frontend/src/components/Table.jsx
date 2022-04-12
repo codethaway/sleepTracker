@@ -3,7 +3,7 @@ import React from 'react';
 
 
 function Table (props) {
-    console.log(props.data.length);
+
     return (
         <div className='table-section'>    
             <div className='duration'>
@@ -24,7 +24,7 @@ function Table (props) {
                             <tbody>
                                 {props.data.map((item, index) => {
                                     return (
-                                        <tr width="100">
+                                        <tr width="100" key={index}>
                                             <td align="center" height="30" width="100">
                                                 {('0'+ new Date(item.sleepTime).getHours()).slice(-2)}:{('0'+ new Date(item.sleepTime).getMinutes()).slice(-2)}
                                             </td>

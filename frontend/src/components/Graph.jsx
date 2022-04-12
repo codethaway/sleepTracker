@@ -12,7 +12,7 @@ data={
         datasets: [
 
             {
-                label: 'Sleep Duration',
+                label: 'Sleep Stats',
                 data: time,
                 lineTension: 0.4,
                 backgroundColor: 'rgba(25, 118, 210, 0.425)',

@@ -6,7 +6,7 @@ const connectDB = async () => {
             useUnifiedTopology: true,
             useNewURlParser: true
         })
-        console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline)
+        console.log(`MongoDB Connected: ${ conn.connection.host }`.cyan.underline)
     } catch(error) {
         console.error(error.message);
         process.exit(1)

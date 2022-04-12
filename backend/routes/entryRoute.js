@@ -15,16 +15,38 @@ router.get('/', asyncHandler( async(req, res) => {
 } ))
 
 router.get('/:id', asyncHandler( async (req, res) => {
-    if (true) {
-        const user = await User.findById(req.params.id)
-        if (user) {
-            res.json(user)
+
+    try {
+        if (req.isAuthenticated()) {
+            console.log(req.isAuthenticated())
+
+                 const user = await User.findById(req.params.id)
+                 if (user) {
+                     res.json(user)
+                 }
+    
         } else {
-            res.status(404)
-            throw new Error('User not found')
-            res.json(error)
+            throw new Error('error')
         }
+        
+    } catch (error) {
+        
+        res.status(404)
+        throw new Error('User not found')
+        
     }
+   
+    
+} ))
+
+router.delete('/delete/:id', asyncHandler( async(req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        user.sleepData = []
+        const update = await user.save()
+        res.json('Succesfully Deleted.')
+    }
+
 } ))
 
 export default router

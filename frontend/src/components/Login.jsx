@@ -1,11 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap'
+import FormContainer from './FormContainer'
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import Message from './Message'
 
 import "../styles/Login.css";
 function Login( { history } ) {
-    const [user, setUser] = React.useState({
+
+    const [ errorMessage, setErrorMessage ] = useState(null)
+    const [user, setUser] = useState({
         username: "",
         password: ""
     });
@@ -17,25 +23,31 @@ function Login( { history } ) {
             [name]: value
         }))
     }
-    function submitData(event) {
-        const options = {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user)
-        };
+    const submitHandler  = async (event) => {
 
-        fetch('/api/users/login', options)
-            .then(response => (response.json())).then(data => {
-                history.push(`/entry/${data}`)
-              })
+        
+        event.preventDefault();
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const { data } = await axios.post('/api/users/login', { ...user }, config)
+            console.log(data);
+            history.push(`entry/${data}`)
+
+        } catch (error) {
+            const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message
+            setErrorMessage(errorMessage)
+        }
+
         setUser({
             username: "",
             password: ""
         });
 
-        event.preventDefault();
 
 
     }
@@ -43,24 +55,24 @@ function Login( { history } ) {
 
     return (
 
-        <div className=" login container">
-            <div className="overlay"> </div>
-            <form action="/login">
-                <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
-                <div className="container-fluid">
-
-                    <div className="mb-3 drop">
-                        <input type="email" className="form-control" id="InputUsername" onChange={handleChange} name="username" value={user.username} placeholder="Email" autoComplete="off" />
-                    </div>
-                    <div className="mb-3 drop">
-                        <input type="password" className="form-control" name="password" onChange={handleChange} value={user.password} placeholder="Password" id="exampleInputPassword1" autoComplete="off" />
-                    </div>
-                    <span> Don't have an account?   <Link to="/register">Signup </Link> instead.</span>
-
-                </div>
-                <button type="submit" onClick={submitData} className="btn btn-primary">Log In</button>
-            </form>
-        </div>
+        <FormContainer>
+            <h2>Log In</h2>
+            { errorMessage && <Message variant='danger'>{ errorMessage }</Message>}
+            <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
+            <Form onSubmit={submitHandler}>
+                <Form.Group controlId='email'>
+                    <Form.Label>Email Address</Form.Label>
+                    <Form.Control className="mb-3" type='email' placeholder='Enter Email' name='username' value={user.username} onChange={handleChange}></Form.Control>
+                </Form.Group>
+                <Form.Group controlId='password'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control className="mb-3" type='password' placeholder='Enter Password' name='password' value={user.password} onChange={handleChange}></Form.Control>
+                </Form.Group>
+                <Button type="submit" variant="dark">
+                    Sign In
+                </Button>
+            </Form>
+        </FormContainer>
 
     )
 
