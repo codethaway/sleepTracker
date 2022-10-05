@@ -20,7 +20,7 @@ function Entry( { history, match } ) {
     const [ userDetails, setUserDetails ] = useState({handle: 'Comrade'})
     const [isClicked, setIsClicked] = useState(false);
 
-
+    
 
     useEffect(() => {
         const fetchData = async () => {
