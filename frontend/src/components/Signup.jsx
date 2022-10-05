@@ -42,6 +42,8 @@ function Signup({ history }) {
             try {
              const { data } = await axios.post('/api/users/register', {...user}, config)
              console.log(data);
+             
+            history.push(`entry/${data}`)
             } catch (error) {
      
              const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message
