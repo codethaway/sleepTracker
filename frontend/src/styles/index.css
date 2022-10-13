@@ -355,7 +355,8 @@ label + .MuiInput-formControl {
   }
 
   footer {
-    position: relative
+    position: relative;
+    margin-top: 3%;
   }
 
   .head-title {
@@ -366,6 +367,12 @@ label + .MuiInput-formControl {
   }
   .table {
     margin: 0 auto 0 5%
+  }
+  .date-picker, .time {
+    width: 90%;
+  }
+  .date-picker {
+    padding: 3% !important;
   }
 }
 
