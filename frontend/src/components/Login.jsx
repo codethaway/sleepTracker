@@ -56,7 +56,7 @@ function Login( { history } ) {
     return (
 
         <FormContainer>
-            <h2>Log In</h2>
+            <h2>LOG IN</h2>
             { errorMessage && <Message variant='danger'>{ errorMessage }</Message>}
             <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
             <Form onSubmit={submitHandler}>
@@ -68,7 +68,7 @@ function Login( { history } ) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control className="mb-3" type='password' placeholder='Enter Password' name='password' value={user.password} onChange={handleChange}></Form.Control>
                 </Form.Group>
-                <Button type="submit" variant="dark">
+                <Button className='px-4 py-2' type="submit" variant="dark">
                     Sign In
                 </Button>
             </Form>

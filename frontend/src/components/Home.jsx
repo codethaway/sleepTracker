@@ -21,8 +21,8 @@ function Home () {
             </div>
             <hr/>
            <p className="lead">
-            <Link to="/login" className="btn btn-lg btn-default border-white bg-white mr"> Log In </Link>
-            <Link to="/register" className="btn btn-lg btn-default border-white">Register</Link>
+            <Link to="/login" className="btn btn-lg btn-default border-white bg-white mr-1"> Log In </Link>
+            <Link to="/register" className="btn btn-lg btn-default border-white ml-1">Register</Link>
             </p>
           </div>
           </div>

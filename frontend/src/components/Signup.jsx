@@ -1,5 +1,5 @@
 //jshint esversion:6
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import FormContainer from './FormContainer'
 import { Button, Form, Row, Col } from 'react-bootstrap'
@@ -9,6 +9,7 @@ import "../styles/Login.css";
 import Message from './Message';
 function Signup({ history }) {
     const [ isError, setIsError ] = useState(null)
+    const [ id, setId ] = useState('')
     // const redirect = location.search ? location.search.split('=')[1] : '/'
     const [user, setUser] = useState({
         username: "",
@@ -16,6 +17,14 @@ function Signup({ history }) {
         password: "",
         confirmPassword: ""
     });
+    useEffect(() => {
+      if (id) {
+        
+        history.push(`entry/${id}`)
+      }
+    
+    }, [id, history])
+    
 
 
     function handleChange(event) {
@@ -42,6 +51,7 @@ function Signup({ history }) {
             try {
              const { data } = await axios.post('/api/users/register', {...user}, config)
              console.log(data);
+             setId(data)
             } catch (error) {
      
              const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message
@@ -66,7 +76,7 @@ function Signup({ history }) {
 
         
         <FormContainer>
-        <h2>Register</h2>
+        <h2>REGISTER</h2>
             { isError && <Message variant='danger'>{ isError }</Message>}
             <Link to="/" className="cancel"><ClearIcon></ClearIcon></Link>
            <Form onSubmit={submitHandler}>
@@ -86,7 +96,7 @@ function Signup({ history }) {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control className="mb-3" type='password' placeholder='Confirm Password' name='confirmPassword' value={user.confirmPassword} onChange={handleChange}></Form.Control>
             </Form.Group>
-            <Button type="submit" variant="dark">
+            <Button type="submit" className='px-4 py-2' variant="dark">
                 Register
             </Button>
         </Form>

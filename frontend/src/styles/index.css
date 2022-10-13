@@ -335,7 +335,7 @@ label + .MuiInput-formControl {
     font-size: 18px;
   }
   .row > * {
-    padding: 0 !important;
+    padding: 0 1.5rem !important;
   }
   .graph {
     margin-bottom: 8%;
@@ -344,6 +344,31 @@ label + .MuiInput-formControl {
     width: 94%;
   }
 }
+
+@media (max-width: 500px) {
+  .entry div h1{
+    font-size: 2.3rem;
+    margin-bottom: 0;
+  }
+  .load {
+    width: 88%;
+  }
+
+  footer {
+    position: relative
+  }
+
+  .head-title {
+    font-size: calc(1.5rem + .3vw);
+  }
+  .heading {
+    margin: 0 auto 1% 12%;
+  }
+  .table {
+    margin: 0 auto 0 5%
+  }
+}
+
 .head-title {
   font-weight: 600;
   font-size: calc(1.575rem + 0.3vw);
