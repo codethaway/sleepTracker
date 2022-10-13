@@ -1,8 +1,10 @@
 //jshint esversion:8
 
 import express from 'express'
+import path from 'path'
 import session from 'express-session'
 import dotenv from 'dotenv'
+import morgan from 'morgan'
 import colors from 'colors'
 import passport from 'passport'
 import connectDB from './config/db.js'
@@ -28,7 +30,9 @@ app.use(passport.session());
 app.use('/api/entries', entriesRoute)
 app.use('/api/users', usersRoutes)
 connectDB()
-
+if( process.env.NODE_ENV === 'development' ) {
+  app.use(morgan('dev'))
+}
 
 
 
@@ -61,7 +65,22 @@ app.post('/api/entries/:id', function(req, res) {
   });
 });
 
+const __dirname = path.resolve()
 
+if( process.env.NODE_ENV === 'production' ){
+  app.use(express.static(path.join( __dirname, '/frontend/build' )))
+
+  app.get('*', (req, res) => 
+      res.sendFile(path.resolve( __dirname, 'frontend', 'build', 'index.html' )
+  )
+  )
+} else {
+
+  app.get('/', (req, res) => {
+    res.send('API is running....')
+  })
+
+}
 app.use(notFound)
 app.use(errorHandler)
 

@@ -51,7 +51,12 @@ function Signup({ history }) {
             try {
              const { data } = await axios.post('/api/users/register', {...user}, config)
              console.log(data);
+<<<<<<< HEAD
              setId(data)
+=======
+             
+            history.push(`entry/${data}`)
+>>>>>>> 7aacdbad409aae15ff08430edba1a9803386880e
             } catch (error) {
      
              const errorMessage = error.response && error.response.data.message ? error.response.data.message : error.message
